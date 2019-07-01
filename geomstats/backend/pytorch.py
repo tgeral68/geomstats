@@ -218,7 +218,7 @@ def dot(a, b):
 
 
 def maximum(a, b):
-    return int(torch.max(array(a), array(b)))
+    return torch.max(array(a), array(b))
 
 
 def greater(a, b):
@@ -342,6 +342,7 @@ def where(*args, **kwargs):
 
 def tile(x, y):
     # TODO(johmathe): Native tile implementation
+    y = tuple([int(one_y) for one_y in y])
     return array(np.tile(x, y))
 
 
