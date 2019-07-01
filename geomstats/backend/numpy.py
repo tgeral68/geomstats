@@ -21,6 +21,10 @@ def byte_to_float(x):
     return x
 
 
+def to_bool(x):
+    return x.astype(bool)
+
+
 def while_loop(cond, body, loop_vars, maximum_iterations):
     iteration = 0
     while cond(*loop_vars):
