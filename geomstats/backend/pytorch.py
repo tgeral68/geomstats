@@ -51,8 +51,7 @@ def amax(x):
 
 
 def boolean_mask(x, mask):
-    mask = torch.ByteTensor(mask)
-    return x[mask]
+    return x[mask.byte()]
 
 
 def arctan2(*args, **kwargs):
@@ -347,10 +346,7 @@ def where(*args, **kwargs):
 
 
 def tile(x, y):
-    y = [int(one_y) for one_y in y]
-    # TODO(nina): Remove the above line
-    # TODO(johmathe): Native tile implementation
-    return array(np.tile(x, y))
+    return x.repeat(y)
 
 
 def clip(x, amin, amax):
