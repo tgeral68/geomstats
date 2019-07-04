@@ -246,11 +246,7 @@ class RiemannianMetric(object):
                              or shape=[1, dimension]
         """
         log = self.log(point=point_b, base_point=point_a)
-        print('log')
-        print(log.device)
         sq_dist = self.squared_norm(vector=log, base_point=point_a)
-        print('sq norm')
-        print(sq_dist.device)
         return sq_dist
 
     def dist(self, point_a, point_b):
@@ -267,13 +263,7 @@ class RiemannianMetric(object):
         point_b: array-like, shape=[n_samples, dimension]
                              or shape=[1, dimension]
         """
-        print('point_a')
-        print(point_a.device)
-        print('point_b')
-        print(point_b.device)
         sq_dist = self.squared_dist(point_a, point_b)
-        print('sqdist')
-        print(sq_dist.device)
         dist = gs.sqrt(sq_dist)
         return dist
 
