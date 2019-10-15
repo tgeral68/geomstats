@@ -355,36 +355,23 @@ class HypersphereMetric(RiemannianMetric):
 
         coef_1 = gs.zeros_like(angle)
         coef_2 = gs.zeros_like(angle)
-        print('coef1')
-        print(coef_1.device)
-        print(type(coef_1))
-        print(coef_1.dtype)
-        print('mask_0_float')
-        print(mask_0_float.device)
-        print(type(mask_0_float))
-        print(mask_0_float.dtype)
-        print('angle')
-        print(angle.device)
-        print(type(angle))
-        print(angle.dtype)
-        print('inv sin')
-        print(INV_SIN_TAYLOR_COEFFS[1])
-        coef_1 += mask_0_float * (
+
+        coef_1 = coef_1 + mask_0_float * (
            1. + INV_SIN_TAYLOR_COEFFS[1] * angle ** 2
            + INV_SIN_TAYLOR_COEFFS[3] * angle ** 4
            + INV_SIN_TAYLOR_COEFFS[5] * angle ** 6
            + INV_SIN_TAYLOR_COEFFS[7] * angle ** 8)
-        coef_2 += mask_0_float * (
+        coef_2 = coef_2 + mask_0_float * (
            1. + INV_TAN_TAYLOR_COEFFS[1] * angle ** 2
            + INV_TAN_TAYLOR_COEFFS[3] * angle ** 4
            + INV_TAN_TAYLOR_COEFFS[5] * angle ** 6
            + INV_TAN_TAYLOR_COEFFS[7] * angle ** 8)
 
         # This avoids division by 0.
-        angle += mask_0_float * 1.
+        angle = angle + mask_0_float * 1.
 
-        coef_1 += mask_else_float * angle / gs.sin(angle)
-        coef_2 += mask_else_float * angle / gs.tan(angle)
+        coef_1 = coef_1 + mask_else_float * angle / gs.sin(angle)
+        coef_2 = coef_2 + mask_else_float * angle / gs.tan(angle)
 
         log = (gs.einsum('ni,nj->nj', coef_1, point)
                - gs.einsum('ni,nj->nj', coef_2, base_point))
@@ -402,7 +389,7 @@ class HypersphereMetric(RiemannianMetric):
 
         mask_same_points_float = gs.cast(mask_same_points, gs.float32)
 
-        log -= mask_same_points_float * log
+        log = log - mask_same_points_float * log
 
         return log
 
