@@ -242,8 +242,9 @@ def rand(*args, **largs):
     return torch.random.rand(*args, **largs)
 
 
-def isclose(*args, **kwargs):
-    return torch.isclose(*args, **kwargs)
+def isclose(x, val):
+    val = torch.Tensor([val])
+    return torch.isclose(x, val)
     #return torch.from_numpy(np.isclose(*args, **kwargs).astype(int)).byte()
 
 
