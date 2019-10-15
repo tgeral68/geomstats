@@ -338,7 +338,7 @@ def tile(x, y):
 
 
 def clip(x, amin, amax):
-    return np.clip(x, amin, amax)
+    return torch.clamp(x, amin, amax)
 
 
 def diag(*args, **kwargs):
