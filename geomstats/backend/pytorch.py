@@ -10,6 +10,9 @@ float64 = 'torch.DoubleTensor'
 int32 = 'torch.LongTensor'
 int8 = 'torch.ByteTensor'
 
+CUDA = torch.cuda.is_available()
+DEVICE = torch.device('cuda' if CUDA else 'cpu')
+
 
 def while_loop(cond, body, loop_vars, maximum_iterations):
     iteration = 0
@@ -104,7 +107,7 @@ def array(val):
         val = torch.Tensor([val])
     if val.dtype == torch.float64:
         val = val.float()
-    return val
+    return val.to(DEVICE)
 
 
 def abs(val):
