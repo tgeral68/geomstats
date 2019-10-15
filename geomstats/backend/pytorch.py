@@ -270,7 +270,7 @@ def sum(x, axis=None, **kwargs):
 
 
 def einsum(*args, **kwargs):
-    return torch.from_numpy(np.einsum(*args, **kwargs)).float()
+    return torch.einsum(*args, **kwargs).float()
 
 
 def T(x):
