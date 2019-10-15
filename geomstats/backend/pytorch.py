@@ -11,7 +11,6 @@ int32 = 'torch.LongTensor'
 int8 = 'torch.ByteTensor'
 
 
-
 def while_loop(cond, body, loop_vars, maximum_iterations):
     iteration = 0
     while cond(*loop_vars):
@@ -332,8 +331,7 @@ def where(*args, **kwargs):
 
 
 def tile(x, y):
-    # TODO(johmathe): Native tile implementation
-    return array(np.tile(x, y))
+    return x.repeat(y)
 
 
 def clip(x, amin, amax):
