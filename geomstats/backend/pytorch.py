@@ -49,8 +49,7 @@ def arctan2(*args, **kwargs):
 
 
 def cast(x, dtype):
-    x = array(x)
-    return x.type(dtype)
+    return array(x.type(dtype))
 
 
 def divide(*args, **kwargs):
