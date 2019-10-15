@@ -215,7 +215,8 @@ class Hypersphere(EmbeddedManifold):
         unit_vector = gs.hstack((gs.cos(angle), gs.sin(angle)))
         scalar = gs.random.rand(n_samples)
 
-        coord_z = 1. + 1. / kappa * gs.log(scalar + (1. - scalar) *
+        coord_z = 1. + 1. / kappa * gs.log(
+                scalar + (1. - scalar) *
                 gs.exp(gs.array(-2. * kappa)))
         coord_z = gs.to_ndarray(coord_z, to_ndim=2, axis=1)
 
@@ -299,6 +300,10 @@ class HypersphereMetric(RiemannianMetric):
         norm_tangent_vec = self.embedding_metric.norm(tangent_vec) + EPSILON
         coef_1 = gs.cos(norm_tangent_vec)
         coef_2 = gs.sin(norm_tangent_vec) / norm_tangent_vec
+        print(coef_1.shape)
+        print(coef_2.shape)
+        print(base_point.shape)
+        print(tangent_vec.shape)
         exp = (gs.einsum('ni,nj->nj', coef_1, base_point)
                + gs.einsum('ni,nj->nj', coef_2, tangent_vec))
 
