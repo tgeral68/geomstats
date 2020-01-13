@@ -32,3 +32,17 @@ class HyperbolicMetric(RiemannianMetric):
         super(HyperbolicMetric, self).__init__(
                 dimension=dimension,
                 signature=(dimension, 0, 0))
+
+    def exp(self, tangent_vec, base_point):
+        pass
+
+    def log(self, point, base_point):
+        pass
+
+    def dist(self, point_a, point_b):
+        a_norm = gs.norm(a_norm)
+        b_norm = gs.norm(b_norm)
+        
+    @staticmethod
+    def test():
+        
