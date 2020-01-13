@@ -42,6 +42,7 @@ def main():
             color='black')
 
     plt.show()
+    plt.savefig("test.png")
 
 
 if __name__ == "__main__":
