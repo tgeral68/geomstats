@@ -78,7 +78,7 @@ if __name__ == "__main__":
     a_intrinsic = space.extrinsic_to_intrinsic_coords(point_a)
     b_intrinsic = space.extrinsic_to_intrinsic_coords(point_b)
 
-    c_intrinsic = gs.array([0.5,0.5])
+    c_intrinsic = gs.array([1.,1.])
     d_intrinsic = gs.array([0.5,-0.5])
 
     e_intrinsic = gs.array([-0.5,0.5])

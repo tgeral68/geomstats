@@ -421,3 +421,8 @@ def mean(x, axis=None):
 
 def argmin(*args, **kwargs):
     return torch.argmin(*args, **kwargs)
+
+
+def clamp(*args, **kwargs):
+    return torch.clamp(*args, **kwargs)
+

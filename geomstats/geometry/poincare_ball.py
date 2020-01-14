@@ -26,10 +26,15 @@ class PoincareBall(HyperbolicSpace):
 
 class PoincareMetric(RiemannianMetric):
 
+    """
+    Class for the Poincareball metric
+    """
+
     def __init__(self, dimension):
-        super(RiemannianMetric, self).__init__(
-                dimension=dimension,
-                signature=(dimension, 0, 0))
+        dimension = dimension
+        # super(RiemannianMetric, self).__init__(
+        #         dimension=dimension,
+        #         signature=(dimension, 0, 0))
 
     def add(x, y):
         nx = gs.sum(x ** 2, dim=-1, keepdim=True).expand_as(x)

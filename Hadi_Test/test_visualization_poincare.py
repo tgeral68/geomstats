@@ -72,6 +72,7 @@ def poincare_ball_test():
 
 
 
+
     print('Plot added points',)
 
     print('Plot points', edge_points)
