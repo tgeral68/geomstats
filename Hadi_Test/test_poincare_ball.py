@@ -13,6 +13,7 @@ def poincare_ball_test():
     y = gs.array([0.5, -0.5])
     d = Metric.dist(x,y)
 
+
     print('Distance Poincare', d)
 
 

@@ -43,5 +43,12 @@ class TestPoincareBall(unittest.TestCase):
 
         self.assertTrue(gs.allclose(result, expected))
 
+    def test_log(self):
+
+
+    def test_exp(self):
+
+
+
 if __name__ == '__main__':
         unittest.main()

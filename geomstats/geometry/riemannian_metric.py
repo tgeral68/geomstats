@@ -158,7 +158,7 @@ class RiemannianMetric(object):
         raise NotImplementedError(
                 'The Riemannian exponential is not implemented.')
 
-    def log(self, point, base_point=None):
+    def log(self, point, base_point=None, type = None):
         """
         Riemannian logarithm of a point wrt a base point.
 

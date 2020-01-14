@@ -2,13 +2,9 @@
 The n-dimensional Poincare Hyperbolic space
 """
 
-import logging
-import math
+
 
 import geomstats.backend as gs
-
-from geomstats.geometry.embedded_manifold import EmbeddedManifold
-from geomstats.geometry.minkowski_space import MinkowskiMetric
 from geomstats.geometry.minkowski_space import MinkowskiSpace
 from geomstats.geometry.riemannian_metric import RiemannianMetric
 from geomstats.geometry.hyperbolic_space import HyperbolicSpace
@@ -37,29 +33,60 @@ class PoincareMetric(RiemannianMetric):
         #         signature=(dimension, 0, 0))
 
     def add(x, y):
+
         nx = gs.sum(x ** 2, dim=-1, keepdim=True).expand_as(x)
         ny = gs.sum(y ** 2, dim=-1, keepdim=True).expand_as(x)
         xy = (x * y).sum(-1, keepdim=True).expand_as(x)
         return ((1 + 2 * xy + ny) * x + (1 - nx) * y) / (1 + 2 * xy + nx * ny)
 
-    def log(self, k, x=None):
-        kpx = self.add(-k, x)
+    def log(self, point, base_point=None):
+
+        """
+
+        :param point:
+        :param base_point:
+        :return: Log of the point with respect to the base point
+        """
+
+        kpx = self.add(-base_point, point)
+
         norm_kpx = kpx.norm(2, -1, keepdim=True).expand_as(kpx)
-        norm_k = k.norm(2, -1, keepdim=True).expand_as(kpx)
-        res = (1 - norm_k ** 2) * ((gs.arc_tanh(norm_kpx))) * (kpx / norm_kpx)
+
+        norm_base_point = base_point.norm(2, -1, keepdim=True).expand_as(kpx)
+
+        res = (1 - norm_base_point ** 2) * ((gs.arc_tanh(norm_kpx))) * (kpx / norm_kpx)
+
         if (0 != len((norm_kpx == 0).nonzero())):
+
             res[norm_kpx == 0] = 0
+
         return res
 
-    def exp(self, k, x=None):
-        norm_k = k.norm(2, -1, keepdim=True).expand_as(k)
-        lambda_k = 1 / (1 - norm_k ** 2)
-        norm_x = x.norm(2, -1, keepdim=True).expand_as(x)
-        direction = x / norm_x
-        factor = gs.tanh(lambda_k * norm_x)
-        res = self.add(k, direction * factor)
-        if (0 != len((norm_x == 0).nonzero())):
-            res[norm_x == 0] = k[norm_x == 0]
+
+    def exp(self, tangent_vec, base_point=None):
+
+        """
+
+        :param tangent_vec: A tangent vector on the base point
+        :param base_point: in the Poincare Ball
+        :return: exponential map of the base point w.r.t the input tangent vector
+
+        """
+
+        norm_base_point = base_point.norm(2, -1, keepdim=True).expand_as(base_point)
+
+        lambda_base_point = 1 / (1 - norm_base_point ** 2)
+
+        norm_tangent_vector = tangent_vec.norm(2, -1, keepdim=True).expand_as(tangent_vec)
+
+        direction = tangent_vec / norm_tangent_vector
+
+        factor = gs.tanh(lambda_base_point * norm_tangent_vector)
+
+        res = self.add(base_point, direction * factor)
+
+        if (0 != len((norm_tangent_vector == 0).nonzero())):
+            res[norm_tangent_vector == 0] = base_point[norm_tangent_vector == 0]
         return res
 
     def dist(self, x,y):
@@ -69,5 +96,5 @@ class PoincareMetric(RiemannianMetric):
         d_norm = gs.sum((x - y) ** 2, dim=-1)
         cc = 1 + 2 * d_norm / ((1 - x_norm) * (1 - y_norm))
         dist = gs.log(cc + gs.sqrt(cc ** 2 - 1))
-        #ctx.save_for_backward(x, y, dist)
+
         return dist
