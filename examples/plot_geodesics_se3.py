@@ -27,7 +27,8 @@ def main():
     points = geodesic(t)
 
     visualization.plot(points, space='SE3_GROUP')
-    plt.show()
+    plt.draw()
+    plt.savefig("test.png")
 
 
 if __name__ == "__main__":
