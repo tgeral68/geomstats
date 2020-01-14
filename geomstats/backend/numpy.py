@@ -412,3 +412,6 @@ def mean(x, axis=None):
 
 def normal(*args, **kwargs):
     return np.random.normal(*args, **kwargs)
+
+def append(*args, **kwargs):
+    return np.append(*args, **kwargs)

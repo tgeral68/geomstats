@@ -34,6 +34,7 @@ def main():
         t = np.linspace(0, 1, n_steps)
         edge_points = geodesic(t)
 
+
         visualization.plot(
             edge_points,
             ax=ax,
