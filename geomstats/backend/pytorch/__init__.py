@@ -115,7 +115,7 @@ def array(val):
     if not isinstance(val, torch.Tensor):
         val = torch.Tensor([val])
     if val.dtype == torch.float64:
-        val = val.float()
+        val = val.double()
     return val
 
 
@@ -323,6 +323,14 @@ def mod(*args, **kwargs):
 
 def arctanh(x):
     return 0.5 * torch.log((1+x)/(1-x))
+
+
+def arcsinh(x):
+    return torch.log(x + torch.sqrt(x**2 + 1))
+
+
+def arcosh(x):
+    return torch.log(x + torch.sqrt(x**2 - 1))
 
 
 def linspace(start, stop, num):
